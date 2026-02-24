@@ -1,6 +1,6 @@
-package repositorys;
+package com.example.flutter_api.repositorys;
 
-import models.Historico;
+import com.example.flutter_api.models.Historico;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

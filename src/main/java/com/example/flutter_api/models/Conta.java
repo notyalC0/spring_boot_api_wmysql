@@ -1,4 +1,4 @@
-package models;
+package com.example.flutter_api.models;
 
 import jakarta.persistence.*;
 
@@ -8,14 +8,24 @@ import jakarta.persistence.*;
 public class Conta {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "saldo")
     private double saldo;
+
+    Conta() {
+    }
+
+    Conta(Long id, double saldo) {
+        this.id = id;
+        this.saldo = saldo;
+    }
 
     // getters
 
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -25,7 +35,7 @@ public class Conta {
 
     // setters
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

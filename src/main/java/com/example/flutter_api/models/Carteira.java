@@ -1,11 +1,11 @@
-package models;
+package com.example.flutter_api.models;
 
 import jakarta.persistence.*;
-import org.springframework.context.annotation.Primary;
 
 @Entity
 @Table(name = "carteira")
 public class Carteira {
+    @Id
     @PrimaryKeyJoinColumn
     private String sigla;
 

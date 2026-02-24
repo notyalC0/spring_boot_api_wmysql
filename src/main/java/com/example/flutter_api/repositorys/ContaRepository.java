@@ -1,0 +1,11 @@
+package com.example.flutter_api.repositorys;
+
+import com.example.flutter_api.models.Conta;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
+public interface ContaRepository extends JpaRepository<Conta, Long> {
+
+}

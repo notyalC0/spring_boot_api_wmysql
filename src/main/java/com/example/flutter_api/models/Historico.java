@@ -1,4 +1,4 @@
-package models;
+package com.example.flutter_api.models;
 
 import jakarta.persistence.*;
 
