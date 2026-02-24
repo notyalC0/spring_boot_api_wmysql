@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-interface HistoricoRepository extends JpaRepository<Historico, Integer> {
+public interface HistoricoRepository extends JpaRepository<Historico, Long> {
 }

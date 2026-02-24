@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "historico")
 public class Historico {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private Integer data_operacao;
 
@@ -23,7 +23,7 @@ public class Historico {
 
     // getters
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -53,7 +53,7 @@ public class Historico {
 
     // Setters
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

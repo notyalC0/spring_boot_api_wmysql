@@ -5,16 +5,23 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "carteira")
 public class Carteira {
+
     @Id
-    @PrimaryKeyJoinColumn
     private String sigla;
 
     private String moeda;
 
     private String quantidade;
 
+    public Carteira() {
+    }
 
-    //getters
+    public Carteira(String sigla, String moeda, String quantidade) {
+        this.sigla = sigla;
+        this.moeda = moeda;
+        this.quantidade = quantidade;
+    }
+//getters
 
     public String getSigla() {
         return sigla;

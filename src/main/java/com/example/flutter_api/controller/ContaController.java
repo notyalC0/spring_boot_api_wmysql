@@ -17,7 +17,7 @@ public class ContaController {
 
 
     @PostMapping
-    Conta salvarConta(@RequestBody Conta conta) {
+    public Conta salvarConta(@RequestBody Conta conta) {
         return contaService.salvarConta(conta);
     }
 
