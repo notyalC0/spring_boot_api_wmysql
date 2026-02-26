@@ -9,7 +9,7 @@ public class Historico {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer data_operacao;
+    private Long data_operacao;
 
     private String tipo_operacao;
 
@@ -23,11 +23,24 @@ public class Historico {
 
     // getters
 
+    public Historico() {
+    }
+
+    public Historico(Long id, Long data_operacao, String tipo_operacao, String moeda, String sigla, String valor, String quantidade) {
+        this.id = id;
+        this.data_operacao = data_operacao;
+        this.tipo_operacao = tipo_operacao;
+        this.moeda = moeda;
+        this.sigla = sigla;
+        this.valor = valor;
+        this.quantidade = quantidade;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public Integer getDataOp() {
+    public Long getDataOp() {
         return data_operacao;
     }
 
@@ -57,7 +70,7 @@ public class Historico {
         this.id = id;
     }
 
-    public void setDataOp(Integer data_operacao) {
+    public void setDataOp(Long data_operacao) {
         this.data_operacao = data_operacao;
     }
 

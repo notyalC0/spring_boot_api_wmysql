@@ -19,9 +19,9 @@ public class CarteiraController {
         return carteiraService.getAllCarteira();
     }
 
-    @GetMapping("/{id}")
-    public Carteira getCarteiraById(@PathVariable String id) {
-        return carteiraService.getAllCarteiraById(id);
+    @GetMapping("/{sigla}")
+    public Carteira getCarteiraById(@PathVariable String sigla) {
+        return carteiraService.getAllCarteiraById(sigla);
     }
 
     @PostMapping
@@ -29,14 +29,15 @@ public class CarteiraController {
         return carteiraService.adicionarCarteira(carteira);
     }
 
-    @PutMapping("/{id}")
-    public Carteira atualizarCarteira(@RequestBody Carteira carteira, String id) {
-        return carteiraService.atualizarCarteira(carteira, id);
+    @PutMapping("/{sigla}")
+    public Carteira atualizarCarteira(@RequestBody Carteira carteira, @PathVariable String sigla) {
+        carteira.setSigla(sigla);
+        return carteiraService.atualizarCarteira(carteira);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletarCarteira(String id) {
-        carteiraService.deletarCarteira(id);
+    @DeleteMapping("/{sigla}")
+    public void deletarCarteira(@PathVariable String sigla) {
+        carteiraService.deletarCarteira(sigla);
     }
 
 }

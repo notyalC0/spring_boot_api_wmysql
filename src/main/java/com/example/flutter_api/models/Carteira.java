@@ -31,7 +31,7 @@ public class Carteira {
         return moeda;
     }
 
-    public String getQtd() {
+    public String getQuantidade() {
         return quantidade;
     }
 
@@ -46,8 +46,8 @@ public class Carteira {
         this.moeda = moeda;
     }
 
-    public void setQtd(String quantidade) {
-        this.quantidade = Carteira.this.quantidade;
+    public void setQuantidade(String quantidade) {
+        this.quantidade = quantidade;
     }
 
 }

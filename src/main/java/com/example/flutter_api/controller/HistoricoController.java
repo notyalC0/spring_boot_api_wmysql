@@ -32,7 +32,8 @@ public class HistoricoController {
 
     @PutMapping("/{id}")
     public Historico editarHistorico(@RequestBody Historico historico, @PathVariable Long id) {
-        return historicoService.editarHistorico(historico, id);
+        historico.setId(id);
+        return historicoService.editarHistorico(historico);
     }
 
     @DeleteMapping("/{id}")

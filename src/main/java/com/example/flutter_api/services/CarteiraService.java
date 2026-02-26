@@ -21,20 +21,20 @@ public class CarteiraService {
         return carteiraRepository.findAll();
     }
 
-    public Carteira getAllCarteiraById(String id) {
-        return carteiraRepository.findById(id).orElse(null);
+    public Carteira getAllCarteiraById(String sigla) {
+        return carteiraRepository.findById(sigla).orElse(null);
     }
 
     public Carteira adicionarCarteira(Carteira carteira) {
         return carteiraRepository.save(carteira);
     }
 
-    public Carteira atualizarCarteira(Carteira carteira, String id) {
+    public Carteira atualizarCarteira(Carteira carteira) {
         return carteiraRepository.save(carteira);
     }
 
-    public void deletarCarteira(String id) {
-        carteiraRepository.deleteById(id);
+    public void deletarCarteira(String sigla) {
+        carteiraRepository.deleteById(sigla);
     }
 
 }
