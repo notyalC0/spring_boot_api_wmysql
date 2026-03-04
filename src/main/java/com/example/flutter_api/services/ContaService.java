@@ -1,6 +1,7 @@
 package com.example.flutter_api.services;
 
 import com.example.flutter_api.models.Conta;
+import com.example.flutter_api.models.Users;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +17,14 @@ public class ContaService {
         this.contaRepository = contaRepository;
     }
 
-    public List<Conta> getAllContas() {
-        return contaRepository.findAll();
+    public List<Conta> getAllByUsers(Users user) {
+
+        return contaRepository.findByUser(user);
     }
 
-    public Conta getAllContasById(Long id) {
-        return contaRepository.findById(id).orElse(null);
+    public Conta getContasByIdAndUsers(Long id, Users user) {
+
+        return contaRepository.findByIdAndUser(id, user).orElse(null);
     }
 
     public Conta salvarConta(Conta conta) {

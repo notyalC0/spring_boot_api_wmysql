@@ -1,27 +1,33 @@
 package com.example.flutter_api.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "favoritas")
 public class Favoritas {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String icone;
     private String nome;
-    @Id
     private String sigla;
     private String valor;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false )
+    private Users user;
 
 
     public Favoritas() {
     }
 
-    public Favoritas(String icone, String nome, String sigla, String valor) {
+    public Favoritas(Long id, String icone, String nome, String sigla, String valor, Users user) {
+        this.id = id;
         this.icone = icone;
         this.nome = nome;
         this.sigla = sigla;
         this.valor = valor;
+        this.user = user;
     }
 
     public String getIcone() {
@@ -54,5 +60,21 @@ public class Favoritas {
 
     public void setValor(String valor) {
         this.valor = valor;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 }

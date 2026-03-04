@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/registrar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/moedas").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/historico")
                         .hasRole("ADMIN")
                         /*.requestMatchers(HttpMethod.POST, "/auth/registrar")
@@ -66,7 +67,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // descriptografar dados
+        return new BCryptPasswordEncoder();
     }
 
 }

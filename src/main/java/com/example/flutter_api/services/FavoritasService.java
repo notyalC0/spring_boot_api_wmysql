@@ -1,6 +1,7 @@
 package com.example.flutter_api.services;
 
 import com.example.flutter_api.models.Favoritas;
+import com.example.flutter_api.models.Users;
 import com.example.flutter_api.repositorys.FavoritasRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +16,12 @@ public class FavoritasService {
         this.favoritasRepository = favoritasRepository;
     }
 
-    public List<Favoritas> getAllFavoritas() {
-        return favoritasRepository.findAll();
+    public List<Favoritas> getAllByUsers(Users user) {
+        return favoritasRepository.findByUser(user);
     }
 
-    public Favoritas getFavoritasById(String sigla) {
-        return favoritasRepository.findById(sigla).orElse(null);
+    public Favoritas getByIdAndUsers(String sigla, Users user) {
+        return favoritasRepository.findBySiglaAndUser(sigla, user).orElse(null);
     }
 
     public Favoritas setFavoritas(Favoritas favoritas) {

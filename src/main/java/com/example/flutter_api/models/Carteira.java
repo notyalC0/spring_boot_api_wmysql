@@ -7,21 +7,31 @@ import jakarta.persistence.*;
 public class Carteira {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String sigla;
 
     private String moeda;
 
     private String quantidade;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false )
+    private Users user;
+
     public Carteira() {
     }
 
-    public Carteira(String sigla, String moeda, String quantidade) {
+    public Carteira(Long id, String sigla, String moeda, String quantidade, Users user) {
+        this.id = id;
         this.sigla = sigla;
         this.moeda = moeda;
         this.quantidade = quantidade;
+        this.user = user;
     }
-//getters
+
+    //getters
 
     public String getSigla() {
         return sigla;
@@ -35,6 +45,13 @@ public class Carteira {
         return quantidade;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public Users getUser() {
+        return user;
+    }
 
     //setters
 
@@ -50,4 +67,11 @@ public class Carteira {
         this.quantidade = quantidade;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
 }

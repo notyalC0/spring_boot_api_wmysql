@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "historico")
 public class Historico {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long data_operacao;
@@ -21,12 +21,16 @@ public class Historico {
 
     private String quantidade;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false )
+    private Users user;
+
     // getters
 
     public Historico() {
     }
 
-    public Historico(Long id, Long data_operacao, String tipo_operacao, String moeda, String sigla, String valor, String quantidade) {
+    public Historico(Long id, Long data_operacao, String tipo_operacao, String moeda, String sigla, String valor, String quantidade, Users user) {
         this.id = id;
         this.data_operacao = data_operacao;
         this.tipo_operacao = tipo_operacao;
@@ -34,6 +38,7 @@ public class Historico {
         this.sigla = sigla;
         this.valor = valor;
         this.quantidade = quantidade;
+        this.user = user;
     }
 
     public Long getId() {
@@ -64,7 +69,12 @@ public class Historico {
         return quantidade;
     }
 
+    public Users getUser() {
+        return user;
+    }
+
     // Setters
+
 
     public void setId(Long id) {
         this.id = id;
@@ -94,5 +104,7 @@ public class Historico {
         this.quantidade = quantidade;
     }
 
-
+    public void setUser(Users user) {
+        this.user = user;
+    }
 }

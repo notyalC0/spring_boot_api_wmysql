@@ -8,18 +8,23 @@ import jakarta.persistence.*;
 public class Conta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "saldo")
     private double saldo;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false )
+            private Users user;
+
     Conta() {
     }
 
-    Conta(Long id, double saldo) {
+    public Conta(Long id, double saldo, Users user) {
         this.id = id;
         this.saldo = saldo;
+        this.user = user;
     }
 
     // getters
@@ -33,7 +38,12 @@ public class Conta {
         return saldo;
     }
 
+    public Users getUser() {
+        return user;
+    }
+
     // setters
+
 
     public void setId(Long id) {
         this.id = id;
@@ -41,5 +51,9 @@ public class Conta {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
     }
 }
