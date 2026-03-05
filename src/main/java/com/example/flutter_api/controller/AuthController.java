@@ -1,12 +1,11 @@
 package com.example.flutter_api.controller;
 
 import com.example.flutter_api.infra.security.TokenService;
-import com.example.flutter_api.models.AuthenticationDTO;
-import com.example.flutter_api.models.LoginResponseDTO;
-import com.example.flutter_api.models.RegistroDTO;
+import com.example.flutter_api.DTOs.AuthenticationDTO;
+import com.example.flutter_api.DTOs.LoginResponseDTO;
+import com.example.flutter_api.DTOs.RegistroDTO;
 import com.example.flutter_api.models.Users;
 import com.example.flutter_api.repositorys.UsersRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

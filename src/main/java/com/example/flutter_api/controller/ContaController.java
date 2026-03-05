@@ -1,9 +1,12 @@
 package com.example.flutter_api.controller;
 
+import com.example.flutter_api.DTOs.request.ContaRequest;
+import com.example.flutter_api.DTOs.response.ContaResponse;
 import com.example.flutter_api.models.Conta;
 import com.example.flutter_api.models.Users;
 import com.example.flutter_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import com.example.flutter_api.services.ContaService;
 
@@ -21,32 +24,31 @@ public class ContaController {
     private UserService userService;
 
 
-    @PostMapping
-    public Conta salvarConta(@RequestBody Conta conta) {
-
-        Users user = userService.getUsuarioLogado();
-        conta.setUser(user);
-        return contaService.salvarConta(conta);
-    }
-
     @GetMapping
-    public List<Conta> getAllContas() {
+    public List<ContaResponse> getAllContas(@AuthenticationPrincipal Users user) {
 
-    Users user = userService.getUsuarioLogado();
 
-        return contaService.getAllByUsers(user);
+
+        return contaService.getAllByUsers(user)
+                .stream()
+                .map(ContaResponse::from)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public Conta getAllContasById(@PathVariable Long id) {
+    public ContaResponse getAllContasById( @AuthenticationPrincipal Users user,@PathVariable Long id) {
+        Conta conta = contaService.getContasByIdAndUsers(id, user);
+        if (conta == null) return null;
 
-        Users user = userService.getUsuarioLogado();
-        return contaService.getContasByIdAndUsers(id, user);
+
+        return ContaResponse.from(conta);
     }
 
-    @DeleteMapping("/{id}")
-    public void deletarConta(@PathVariable Long id) {
-        contaService.delete(id);
+    @PostMapping
+    public ContaResponse salvarConta(@AuthenticationPrincipal Users user, @RequestBody ContaRequest dto) {
+        Conta conta = new Conta();
+        conta.setSaldo(dto.saldo());
+        return ContaResponse.from(contaService.salvarConta(conta));
     }
 
     @PutMapping("/{id}")
@@ -55,6 +57,12 @@ public class ContaController {
         conta.setId(id);
         conta.setUser(user);
         return contaService.update(conta);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletarConta( @PathVariable Long id) {
+
+        contaService.delete(id);
     }
 
 }

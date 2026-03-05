@@ -32,8 +32,8 @@ public class FavoritasService {
         return favoritasRepository.save(favoritas);
     }
 
-    public void deleteFavoritas(String sigla) {
-        favoritasRepository.deleteById(sigla);
+    public void deleteFavoritas(String sigla, Users user) {
+        favoritasRepository.deleteBySiglaAndUser(sigla, user);
     }
 
 }

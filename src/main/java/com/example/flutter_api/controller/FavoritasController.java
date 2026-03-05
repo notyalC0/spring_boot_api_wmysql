@@ -1,10 +1,13 @@
 package com.example.flutter_api.controller;
 
+import com.example.flutter_api.DTOs.request.FavoritasRequest;
+import com.example.flutter_api.DTOs.response.FavoritasResponse;
 import com.example.flutter_api.models.Favoritas;
 import com.example.flutter_api.models.Users;
 import com.example.flutter_api.services.FavoritasService;
-import com.example.flutter_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,42 +19,58 @@ public class FavoritasController {
     @Autowired
     private FavoritasService favoritasService;
 
-    @Autowired
-    private UserService userService;
-
     @GetMapping
-    public List<Favoritas> getAllFavoritas() {
+    public List<FavoritasResponse> getAllFavoritas(@AuthenticationPrincipal Users user) {
 
-        Users user = userService.getUsuarioLogado();
-        return favoritasService.getAllByUsers(user);
+
+        return favoritasService.getAllByUsers(user)
+                .stream()
+                .map(FavoritasResponse::from)
+                .toList();
     }
 
     @GetMapping("/{sigla}")
-    public Favoritas getFavoritasById(@PathVariable String sigla) {
-        Users user = userService.getUsuarioLogado();
+    public ResponseEntity<FavoritasResponse> getFavoritasById(@AuthenticationPrincipal Users user,  @PathVariable String sigla) {
+        Favoritas favoritas = favoritasService.getByIdAndUsers(sigla, user);
 
-        return favoritasService.getByIdAndUsers(sigla, user);
+        if (favoritas == null )  return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(FavoritasResponse.from(favoritas));
     }
 
     @PostMapping
-    public Favoritas setFavoritas(@RequestBody Favoritas favoritas) {
-        Users user = userService.getUsuarioLogado();
+    public FavoritasResponse setFavoritas(@AuthenticationPrincipal Users user, @RequestBody FavoritasRequest dto) {
+
+        Favoritas existente = favoritasService.getByIdAndUsers(dto.sigla(), user);
+
+        if (existente != null) {
+            return FavoritasResponse.from(existente);
+        }
+
+        Favoritas favoritas = new Favoritas();
+        favoritas.setSigla(dto.sigla());
+        favoritas.setNome(dto.nome());
+        favoritas.setIcone(dto.icone());
+        favoritas.setValor(dto.valor());
         favoritas.setUser(user);
-        return favoritasService.setFavoritas(favoritas);
+        return FavoritasResponse.from(favoritasService.setFavoritas(favoritas));
     }
 
     @PutMapping("/{sigla}")
-    public Favoritas updateFavoritas(@RequestBody Favoritas favoritas, @PathVariable String sigla) {
+    public FavoritasResponse updateFavoritas(@AuthenticationPrincipal Users user ,@RequestBody FavoritasRequest dto, @PathVariable String sigla) {
 
-        Users user = userService.getUsuarioLogado();
-        favoritas.setSigla(sigla);
-        favoritas.setUser(user);
-        return favoritasService.updateFavoritas(favoritas);
+        Favoritas existente = favoritasService.getByIdAndUsers(sigla, user);
+        if (existente == null ) return null;
+
+        existente.setNome(dto.nome());
+        existente.setIcone(dto.icone());
+        existente.setValor(dto.valor());
+        return FavoritasResponse.from(favoritasService.setFavoritas(existente));
     }
 
     @DeleteMapping("/{sigla}")
-    public void deleteFavoritas(@PathVariable String sigla) {
-        favoritasService.deleteFavoritas(sigla);
+    public void deleteFavoritas( @AuthenticationPrincipal Users user, @PathVariable String sigla) {
+        favoritasService.deleteFavoritas(sigla, user);
     }
 
 

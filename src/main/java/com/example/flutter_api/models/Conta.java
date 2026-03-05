@@ -14,11 +14,11 @@ public class Conta {
     @Column(name = "saldo")
     private double saldo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false )
             private Users user;
 
-    Conta() {
+    public Conta() {
     }
 
     public Conta(Long id, double saldo, Users user) {

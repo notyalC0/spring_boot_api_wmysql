@@ -36,10 +36,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/registrar").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/moedas").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/historico")
+                        .requestMatchers(HttpMethod.GET, "/api/moeda**").permitAll()
+                        /*.requestMatchers(HttpMethod.DELETE, "/api/historico")
                         .hasRole("ADMIN")
-                        /*.requestMatchers(HttpMethod.POST, "/auth/registrar")
+                        .requestMatchers(HttpMethod.POST, "/auth/registrar")
                         .hasRole("ADMIN")*/
                         .anyRequest().authenticated()
                 )

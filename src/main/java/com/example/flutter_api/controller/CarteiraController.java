@@ -1,10 +1,13 @@
 package com.example.flutter_api.controller;
 
+import com.example.flutter_api.DTOs.request.CarteiraRequest;
+import com.example.flutter_api.DTOs.response.CarteiraResponse;
 import com.example.flutter_api.models.Carteira;
 import com.example.flutter_api.models.Users;
 import com.example.flutter_api.services.CarteiraService;
 import com.example.flutter_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,39 +19,39 @@ public class CarteiraController {
     @Autowired
     private CarteiraService carteiraService;
 
-    @Autowired
-    private UserService userService;
 
     @GetMapping
-    List<Carteira> getAllCarteira() {
-        Users user = userService.getUsuarioLogado();
-        return carteiraService.getAllByUsers(user);
-    }
+    List<CarteiraResponse> getAllCarteira(@AuthenticationPrincipal Users user) {
 
-    @GetMapping("/{sigla}")
-    public Carteira getCarteiraById(@PathVariable String sigla) {
-        Users user = userService.getUsuarioLogado();
-        return carteiraService.getAllByIdAndUser(sigla, user);
+        return carteiraService.getAllByUsers(user)
+                .stream()
+                .map(CarteiraResponse::from)
+                .toList();
     }
 
     @PostMapping
-    public Carteira adicionarCarteira(@RequestBody Carteira carteira) {
-        Users user = userService.getUsuarioLogado();
+    public CarteiraResponse adicionarCarteira(@AuthenticationPrincipal Users user, @RequestBody CarteiraRequest dto) {
+        Carteira carteira = new Carteira();
+        carteira.setSigla(dto.sigla());
+        carteira.setMoeda(dto.moeda());
+        carteira.setQuantidade(dto.quantidade());
         carteira.setUser(user);
-        return carteiraService.adicionarCarteira(carteira);
+
+        return CarteiraResponse.from(carteiraService.adicionarCarteira(carteira));
     }
 
     @PutMapping("/{sigla}")
-    public Carteira atualizarCarteira(@RequestBody Carteira carteira, @PathVariable String sigla) {
-        Users user = userService.getUsuarioLogado();
+    public CarteiraResponse atualizarCarteira(@AuthenticationPrincipal Users user , @RequestBody CarteiraRequest dto, @PathVariable String sigla) {
+        Carteira carteira = new Carteira();
         carteira.setSigla(sigla);
+        carteira.setQuantidade(dto.quantidade());
         carteira.setUser(user);
-        return carteiraService.atualizarCarteira(carteira);
+        return CarteiraResponse.from(carteiraService.atualizarCarteira(carteira));
     }
 
     @DeleteMapping("/{sigla}")
-    public void deletarCarteira(@PathVariable String sigla) {
-        Users user = userService.getUsuarioLogado();
+    public void deletarCarteira( @AuthenticationPrincipal Users user,@PathVariable String sigla) {
+
         carteiraService.deletarCarteiraBySigla(sigla, user);
     }
 

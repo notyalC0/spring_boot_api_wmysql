@@ -1,5 +1,6 @@
 package com.example.flutter_api.infra.security;
 
+import com.example.flutter_api.models.Users;
 import com.example.flutter_api.repositorys.UsersRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -28,9 +29,18 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = this.recuperarToken(request);
         if (token != null) {
             var email = tokenService.validarToken(token);
-            UserDetails user = usersRepository.findByEmail(email);
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
+            if (token != null && !email.isEmpty()) {
+                Users user = usersRepository.findByEmail(email);
+
+                if (user != null) {
+                    var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+
+            }
+
         }
         filterChain.doFilter(request, response);
     }

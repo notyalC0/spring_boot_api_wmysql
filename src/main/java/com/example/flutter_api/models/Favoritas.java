@@ -13,7 +13,7 @@ public class Favoritas {
     private String sigla;
     private String valor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false )
     private Users user;
 

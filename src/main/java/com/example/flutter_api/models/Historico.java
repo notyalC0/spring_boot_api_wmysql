@@ -9,19 +9,25 @@ public class Historico {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Long data_operacao;
 
+    @Column(nullable = false)
     private String tipo_operacao;
 
+    @Column(nullable = false)
     private String moeda;
 
+    @Column(nullable = false)
     private String sigla;
 
+    @Column(nullable = false)
     private String valor;
 
+    @Column(nullable = false)
     private String quantidade;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false )
     private Users user;
 
