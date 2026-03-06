@@ -14,7 +14,7 @@ public class Conta {
     @Column(name = "saldo")
     private double saldo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false )
             private Users user;
 

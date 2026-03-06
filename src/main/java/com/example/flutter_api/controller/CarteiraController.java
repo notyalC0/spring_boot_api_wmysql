@@ -29,6 +29,7 @@ public class CarteiraController {
                 .toList();
     }
 
+    /**
     @PostMapping
     public CarteiraResponse adicionarCarteira(@AuthenticationPrincipal Users user, @RequestBody CarteiraRequest dto) {
         Carteira carteira = new Carteira();
@@ -53,6 +54,6 @@ public class CarteiraController {
     public void deletarCarteira( @AuthenticationPrincipal Users user,@PathVariable String sigla) {
 
         carteiraService.deletarCarteiraBySigla(sigla, user);
-    }
+    } */
 
 }

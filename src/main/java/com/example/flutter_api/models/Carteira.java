@@ -14,7 +14,7 @@ public class Carteira {
 
     private String moeda;
 
-    private String quantidade;
+    private double quantidade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false )
@@ -23,7 +23,7 @@ public class Carteira {
     public Carteira() {
     }
 
-    public Carteira(Long id, String sigla, String moeda, String quantidade, Users user) {
+    public Carteira(Long id, String sigla, String moeda, double quantidade, Users user) {
         this.id = id;
         this.sigla = sigla;
         this.moeda = moeda;
@@ -41,7 +41,7 @@ public class Carteira {
         return moeda;
     }
 
-    public String getQuantidade() {
+    public double getQuantidade() {
         return quantidade;
     }
 
@@ -63,7 +63,7 @@ public class Carteira {
         this.moeda = moeda;
     }
 
-    public void setQuantidade(String quantidade) {
+    public void setQuantidade(double quantidade) {
         this.quantidade = quantidade;
     }
 

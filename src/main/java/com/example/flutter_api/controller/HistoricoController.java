@@ -30,32 +30,6 @@ public class HistoricoController {
                 .toList();
     }
 
-    @GetMapping("/{id}")
-    public HistoricoResponse getHistoricoById(@AuthenticationPrincipal Users user ,@PathVariable Long id) {
-        Historico historico = historicoService.getHistoricoById(id,user);
-        return HistoricoResponse.from(historico);
-    }
-
-    @PostMapping
-    public HistoricoResponse adicionarHistorico(@AuthenticationPrincipal Users user,@RequestBody HistoricoRequest dto) {
-        if (dto.dataOp() == null || dto.tipoOp() == null) {
-            throw new RuntimeException("dataOp e tipoOp são obrigatórios");
-        }
-
-        Historico historico = new Historico();
-        historico.setDataOp(dto.dataOp());
-        historico.setTipoOp(dto.tipoOp());
-        historico.setMoeda(dto.moeda());
-        historico.setSigla(dto.sigla());
-        historico.setValor(dto.valor());
-        historico.setQtd(dto.quantidade());
-        historico.setUser(user);
-
-        return HistoricoResponse.from(historicoService.adicionarHistorico(historico));
-    }
-
-
-
 
 
 }

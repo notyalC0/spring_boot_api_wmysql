@@ -86,7 +86,7 @@ public class Historico {
         this.id = id;
     }
 
-    public void setDataOp(Long data_operacao) {
+    public void setDataOp(long data_operacao) {
         this.data_operacao = data_operacao;
     }
 

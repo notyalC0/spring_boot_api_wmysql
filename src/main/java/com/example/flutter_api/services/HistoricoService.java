@@ -22,20 +22,4 @@ public class HistoricoService {
 
     }
 
-    public Historico getHistoricoById(Long id, Users user) {
-        return historicoRepository.findByIdAndUser(id, user).orElse(null);
-    }
-
-    public Historico adicionarHistorico(Historico historico) {
-        return historicoRepository.save(historico);
-    }
-
-    public Historico editarHistorico(Historico historico) {
-        return historicoRepository.save(historico);
-    }
-
-    public void deletarHistorico(Long id) {
-
-        historicoRepository.deleteById(id);
-    }
 }

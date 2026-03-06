@@ -1,4 +1,4 @@
-package com.example.flutter_api.DTOs;
+package com.example.flutter_api.DTOs.request;
 
-public record ItemCarrinho(String sigla, double quantidade) {
+public record TransacaoRequest(String sigla, double quantidade) {
 }

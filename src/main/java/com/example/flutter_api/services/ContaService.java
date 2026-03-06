@@ -5,6 +5,7 @@ import com.example.flutter_api.models.Users;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.example.flutter_api.repositorys.ContaRepository;
 
@@ -17,7 +18,7 @@ public class ContaService {
         this.contaRepository = contaRepository;
     }
 
-    public List<Conta> getAllByUsers(Users user) {
+    public Optional<Conta> getAllByUsers(Users user) {
 
         return contaRepository.findByUser(user);
     }

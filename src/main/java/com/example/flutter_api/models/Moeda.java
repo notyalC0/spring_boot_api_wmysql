@@ -15,12 +15,12 @@ public class Moeda {
 
     String nome;
     String icone;
-    Double valor;
+    double valor;
 
     public Moeda() {
     }
 
-    public Moeda(String sigla, String nome, String icone, Double valor) {
+    public Moeda(String sigla, String nome, String icone, double valor) {
         this.sigla = sigla;
         this.nome = nome;
         this.icone = icone;
@@ -51,7 +51,7 @@ public class Moeda {
         this.icone = icone;
     }
 
-    public Double getValor() {
+    public double getValor() {
         return valor;
     }
 

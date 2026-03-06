@@ -6,7 +6,7 @@ public record CarteiraResponse(
         Long id,
         String sigla,
         String moeda,
-        String quantidade
+        double quantidade
         ) {
 
     public static CarteiraResponse from(Carteira carteira) {
