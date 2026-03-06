@@ -6,11 +6,13 @@ import com.example.flutter_api.models.Conta;
 import com.example.flutter_api.models.Users;
 import com.example.flutter_api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import com.example.flutter_api.services.ContaService;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -58,6 +60,20 @@ public class ContaController {
         conta.setUser(user);
         return contaService.update(conta);
     }
+
+    @PatchMapping("/depositar")
+    public ResponseEntity<ContaResponse> depositar(
+            @AuthenticationPrincipal Users user,
+            @RequestBody Map<String, Double> body
+    ) {
+        Double valor = body.get("valor");
+        if (valor == null || valor <= 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        Conta conta = contaService.depositar(user, valor);
+        return ResponseEntity.ok(ContaResponse.from(conta));
+    }
+
 
     @DeleteMapping("/{id}")
     public void deletarConta( @PathVariable Long id) {

@@ -36,6 +36,13 @@ public class ContaService {
         return contaRepository.save(conta);
     }
 
+    public Conta depositar(Users user, Double valor) {
+        Conta conta = contaRepository.findByUser(user)
+                .orElseThrow(() -> new RuntimeException("Conta não encontrada!"));
+        conta.setSaldo(conta.getSaldo() + valor);
+        return contaRepository.save(conta);
+    }
+
     public void delete(Long id) {
         contaRepository.deleteById(id);
     }

@@ -36,6 +36,9 @@ public class CarteiraService {
 
         return carteiraRepository.save(existente);
     }
+
+
+
     @Transactional
     public void deletarCarteiraBySigla(String sigla, Users user) {
 
